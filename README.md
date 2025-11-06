@@ -2,6 +2,8 @@
 
 A deceptively normal AI chat interface that serves as a gateway to an alternative reality inspired by Truth Terminal, Loria, and the gamified AI/Twitter scene.
 
+**🌐 Live Demo: https://derekrazo.github.io/terminal-reality/**
+
 ## Overview
 
 This is a **visual mockup** designed for exploring UX/UI concepts. The functionality is intentionally non-functional - it's meant for clicking around and experiencing the aesthetic and interaction patterns.
