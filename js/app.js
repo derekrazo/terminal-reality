@@ -1,6 +1,31 @@
 // Terminal Reality - Basic Interactivity for Mockup
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMobileMenu() {
+        sidebar.classList.toggle('mobile-open');
+        mobileOverlay.classList.toggle('active');
+        document.body.style.overflow = sidebar.classList.contains('mobile-open') ? 'hidden' : '';
+    }
+
+    function closeMobileMenu() {
+        sidebar.classList.remove('mobile-open');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+    }
+
     // View switching
     const navItems = document.querySelectorAll('.nav-item');
     const views = document.querySelectorAll('.view');
@@ -19,6 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetView) {
                 targetView.classList.add('active');
             }
+
+            // Close mobile menu after selecting a view
+            closeMobileMenu();
         });
     });
 

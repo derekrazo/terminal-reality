@@ -793,6 +793,62 @@ body {
     margin: 0 auto;
 }
 
+/* Mobile Header (hidden on desktop) */
+.mobile-header {
+    display: none;
+}
+
+.mobile-menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    align-items: center;
+}
+
+.hamburger-line {
+    width: 20px;
+    height: 2px;
+    background: #2b2925;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-logo {
+    font-size: 24px;
+    color: #2b2925;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.mobile-header-spacer {
+    width: 44px;
+}
+
+/* Mobile Overlay */
+.mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 8px;
@@ -813,22 +869,233 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+
+/* Tablet */
+@media (max-width: 1024px) {
     .sidebar {
-        width: 200px;
+        width: 220px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Show mobile header */
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: #ffffff;
+        border-bottom: 1px solid #e5e3df;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: 60px;
+    }
+
+    /* Adjust app container for mobile header */
+    .app-container {
+        flex-direction: column;
+    }
+
+    /* Sidebar transforms into mobile drawer */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 999;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0);
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Main content takes full width */
+    .main-content {
+        width: 100%;
+    }
+
+    /* Adjust padding for mobile */
+    .chat-messages,
+    .conversations-list,
+    .feed-container {
+        padding: 16px 12px;
+    }
+
+    .view-header {
+        padding: 16px 12px;
+    }
+
+    .chat-input {
+        padding: 12px;
+    }
+
+    /* Touch-friendly nav items */
+    .nav-item {
+        padding: 14px 12px;
+        font-size: 15px;
+    }
+
+    /* Stack aura summary */
+    .aura-summary {
+        grid-template-columns: 1fr;
+        padding: 16px 12px;
+    }
+
+    .aura-breakdown {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Leaderboard adjustments */
+    .leaderboard {
+        padding: 16px 12px;
+    }
+
+    .leaderboard-item {
+        padding: 10px 12px;
+    }
+
+    /* Loom adjustments */
+    .loom-input-section {
+        padding: 16px 12px;
+    }
+
+    .loom-tree-container {
+        padding: 20px 12px;
+        overflow-x: auto;
+    }
+
+    .tree-branches {
+        min-width: 500px;
+    }
+
+    /* Feed post adjustments */
+    .feed-container {
+        gap: 12px;
+    }
+
+    .feed-post {
+        padding: 12px;
+    }
+
+    /* Conversation cards */
+    .conversations-list {
+        gap: 10px;
+    }
+
+    .conversation-card {
+        padding: 12px;
+    }
+
+    /* Action buttons */
+    .action-btn {
+        margin: 0 12px 16px;
+    }
+
+    /* Chat header adjustments */
+    .chat-header {
+        padding: 12px;
+    }
+
+    .chat-header h2 {
+        font-size: 16px;
+    }
+
+    /* Message bubbles */
+    .user-message .message-content,
+    .ai-message .message-content {
+        max-width: 85%;
+        font-size: 15px;
+    }
+
+    /* Account section in sidebar */
+    .sidebar-footer {
+        padding: 12px;
+    }
+
+    .account-section {
+        padding: 6px;
+    }
+
+    .account-name {
+        font-size: 12px;
+    }
+
+    .account-stats {
+        font-size: 10px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 260px;
+    }
+
+    .mobile-header {
+        padding: 6px 10px;
+    }
+
+    .mobile-logo {
+        font-size: 20px;
     }
 
     .chat-messages,
     .conversations-list,
-    .feed-container {
-        padding: 16px;
-    }
-
-    .view-header {
-        padding: 16px;
-    }
-
+    .feed-container,
+    .view-header,
+    .loom-input-section,
+    .leaderboard,
     .aura-summary {
+        padding: 12px 10px;
+    }
+
+    .chat-input {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .chat-input input {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    .loom-input {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    .user-message .message-content,
+    .ai-message .message-content {
+        max-width: 90%;
+        font-size: 14px;
+    }
+
+    .aura-breakdown {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .leaderboard-item {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .leaderboard-item .rank {
+        min-width: 40px;
+    }
+
+    .prompt-node {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .branch-node.small {
+        font-size: 13px;
+        padding: 8px 10px;
     }
 }
