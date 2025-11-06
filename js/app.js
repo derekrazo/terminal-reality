@@ -157,17 +157,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Random stat updates (subtle animation)
-    setInterval(() => {
-        const statValues = document.querySelectorAll('.stat-value');
-        statValues.forEach(stat => {
-            stat.style.transition = 'color 0.3s ease';
-            stat.style.color = '#667eea';
-            setTimeout(() => {
-                stat.style.color = '';
-            }, 300);
+    // Loom generate button
+    const loomGenerateBtn = document.querySelector('.loom-generate-btn');
+    const loomInput = document.querySelector('.loom-input');
+
+    if (loomGenerateBtn && loomInput) {
+        loomGenerateBtn.addEventListener('click', function() {
+            if (loomInput.value.trim()) {
+                const originalText = this.textContent;
+                this.textContent = 'Growing...';
+                this.style.opacity = '0.6';
+                loomInput.value = '';
+
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.opacity = '1';
+                }, 2000);
+            }
         });
-    }, 10000); // Every 10 seconds
+    }
 
     // Easter egg: Konami code detector
     let konamiCode = [];
