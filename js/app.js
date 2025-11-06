@@ -205,6 +205,93 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Loom horizontal scroll controls
+    const loomScrollWrapper = document.querySelector('.loom-scroll-wrapper');
+    const scrollLeftBtn = document.querySelector('.scroll-left');
+    const scrollRightBtn = document.querySelector('.scroll-right');
+
+    if (loomScrollWrapper && scrollLeftBtn && scrollRightBtn) {
+        scrollLeftBtn.addEventListener('click', function() {
+            loomScrollWrapper.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+
+        scrollRightBtn.addEventListener('click', function() {
+            loomScrollWrapper.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
+
+        // Show/hide scroll buttons based on scroll position
+        function updateScrollButtons() {
+            const scrollLeft = loomScrollWrapper.scrollLeft;
+            const scrollWidth = loomScrollWrapper.scrollWidth;
+            const clientWidth = loomScrollWrapper.clientWidth;
+
+            scrollLeftBtn.style.opacity = scrollLeft > 0 ? '1' : '0.3';
+            scrollRightBtn.style.opacity = scrollLeft < scrollWidth - clientWidth - 10 ? '1' : '0.3';
+        }
+
+        loomScrollWrapper.addEventListener('scroll', updateScrollButtons);
+        updateScrollButtons();
+    }
+
+    // Loom upvote buttons
+    const upvoteBtns = document.querySelectorAll('.upvote-btn');
+    upvoteBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Extract current number
+            const text = this.textContent;
+            const match = text.match(/\d+/);
+            if (match) {
+                const currentNum = parseInt(match[0]);
+                const newNum = currentNum + 1;
+                this.textContent = text.replace(/\d+/, newNum);
+
+                // Visual feedback
+                this.style.transform = 'scale(1.15)';
+                this.style.color = '#667eea';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.color = '';
+                }, 300);
+            }
+        });
+    });
+
+    // Loom expand buttons
+    const expandBtns = document.querySelectorAll('.expand-btn');
+    expandBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const originalText = this.textContent;
+            this.textContent = 'Expanding...';
+            this.style.opacity = '0.6';
+
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.opacity = '1';
+            }, 1500);
+        });
+    });
+
+    // Entity checkbox interactions
+    const entityCheckboxes = document.querySelectorAll('.entity-checkbox input');
+    entityCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const label = this.closest('.entity-checkbox');
+            if (this.checked) {
+                label.style.borderColor = '#667eea';
+                label.style.background = 'rgba(102, 126, 234, 0.05)';
+            } else {
+                label.style.borderColor = '#e5e3df';
+                label.style.background = '#ffffff';
+            }
+        });
+    });
+
     // Easter egg: Konami code detector
     let konamiCode = [];
     const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
